@@ -10,8 +10,16 @@ public class MyClient {
         writer.write("Hello World!");
         writer.newLine();
         writer.flush();
+        int rand = reader.read();
 
+        System.out.println(rand);
         System.out.println(reader.readLine());
+
+        if (rand == 1) {
+            System.out.println("You play for the tik! ");
+        } else if (rand == 0) {
+            System.out.println("You play for the tok! ");
+        }
 
         writer.close();
         reader.close();
