@@ -1,5 +1,7 @@
+import javax.swing.*;
 import java.io.*;
 import java.net.*;
+
 
 public class MyClient {
 
@@ -34,6 +36,12 @@ public class MyClient {
         client.close();*/
         initialization();
         Sout(field);
+        Tiktoktoe tiktoktoe = new Tiktoktoe(" A");
+        tiktoktoe.setVisible(true);
+        tiktoktoe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tiktoktoe.setResizable(false);
+        tiktoktoe.setLocationRelativeTo(null);
+
     }
 
     public static void Sout(char[][] field) {
