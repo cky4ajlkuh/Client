@@ -1,7 +1,6 @@
 
 import javax.swing.*;
 import java.io.*;
-import java.net.*;
 
 
 public class MyClient {
@@ -30,11 +29,11 @@ public class MyClient {
         writer.close();
         reader.close();
         client.close();*/
-        Tiktoktoe tiktoktoe = new Tiktoktoe(" A");
-        tiktoktoe.setVisible(true);
-        tiktoktoe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        tiktoktoe.setResizable(false);
-        tiktoktoe.setLocationRelativeTo(null);
+        TikTakToe tikTakToe = new TikTakToe(" A");
+        tikTakToe.setVisible(true);
+        tikTakToe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tikTakToe.setResizable(false);
+        tikTakToe.setLocationRelativeTo(null);
 
     }
 
