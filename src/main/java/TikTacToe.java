@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TikTakToe extends JFrame {
+public class TikTacToe extends JFrame {
 
     private final static char x = 'X';
     private final static char o = 'O';
@@ -20,26 +20,17 @@ public class TikTakToe extends JFrame {
     JMenu menu = new JMenu("Tik-Tak toe");
     JMenuBar bar = new JMenuBar();
     JButton start = new JButton("Start!");
-    JButton field11 = new JButton(" ");
-    JButton field12 = new JButton(" ");
-    JButton field13 = new JButton(" ");
-    JButton field21 = new JButton(" ");
-    JButton field22 = new JButton(" ");
-    JButton field23 = new JButton(" ");
-    JButton field31 = new JButton(" ");
-    JButton field32 = new JButton(" ");
-    JButton field33 = new JButton(" ");
-    JPanel panel00 = new JPanel();
-    JPanel panel01 = new JPanel();
-    JPanel panel02 = new JPanel();
-    JPanel panel10 = new JPanel();
-    JPanel panel11 = new JPanel();
-    JPanel panel12 = new JPanel();
-    JPanel panel20 = new JPanel();
-    JPanel panel21 = new JPanel();
-    JPanel panel22 = new JPanel();
+    JButton field11 = new JButton(" ", iconH);
+    JButton field12 = new JButton(" ", iconH);
+    JButton field13 = new JButton(" ", iconH);
+    JButton field21 = new JButton(" ", iconH);
+    JButton field22 = new JButton(" ", iconH);
+    JButton field23 = new JButton(" ", iconH);
+    JButton field31 = new JButton(" ", iconH);
+    JButton field32 = new JButton(" ", iconH);
+    JButton field33 = new JButton(" ", iconH);
 
-    public TikTakToe(String s) {
+    public TikTacToe(String s) {
         super(s);
         Image image = new ImageIcon("DRYEawRU8aA.jpg").getImage();
         setContentPane(new JPanel(new BorderLayout()) {
@@ -48,7 +39,6 @@ public class TikTakToe extends JFrame {
                 g.drawImage(image, 0, 0, null);
             }
         });
-        initPanels();
         initialization();
         Sout(field);
         bar.add(menu);
@@ -59,36 +49,36 @@ public class TikTakToe extends JFrame {
         layout.setAutoCreateContainerGaps(true);
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(panel00)
-                        .addComponent(panel10)
-                        .addComponent(panel20)
+                        .addComponent(field11)
+                        .addComponent(field21)
+                        .addComponent(field31)
                 )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(panel01)
-                        .addComponent(panel11)
-                        .addComponent(panel21)
+                        .addComponent(field12)
+                        .addComponent(field22)
+                        .addComponent(field32)
                 )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(panel02)
-                        .addComponent(panel12)
-                        .addComponent(panel22)
+                        .addComponent(field13)
+                        .addComponent(field23)
+                        .addComponent(field33)
                 )
         );
         layout.setVerticalGroup(layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel00)
-                        .addComponent(panel10)
-                        .addComponent(panel20)
+                        .addComponent(field11)
+                        .addComponent(field21)
+                        .addComponent(field31)
                 )
                 .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel01)
-                        .addComponent(panel11)
-                        .addComponent(panel21)
+                        .addComponent(field12)
+                        .addComponent(field22)
+                        .addComponent(field32)
                 )
                 .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel02)
-                        .addComponent(panel12)
-                        .addComponent(panel22)
+                        .addComponent(field13)
+                        .addComponent(field23)
+                        .addComponent(field33)
                 )
 
         );
@@ -96,25 +86,21 @@ public class TikTakToe extends JFrame {
         setResizable(false);
         setSize(new Dimension(1600, 1600));
 
-
-        try {
-            panel00.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    invalidValue(0, 0);
-                    setX(0, 0, x);
-                    Sout(field);
-                }
-            });
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, ":c");
-            e.printStackTrace();
-        }
+        field11.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                invalidValue(0, 0);
+                field11.setIcon(iconX);
+                setX(0, 0, 'X');
+                Sout(field);
+                field11.setEnabled(false);
+            }
+        });
         field21.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 invalidValue(1, 0);
-                field21.setText("X");
+                field21.setIcon(iconX);
                 setX(1, 0, 'X');
                 Sout(field);
                 field21.setEnabled(false);
@@ -124,7 +110,7 @@ public class TikTakToe extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 invalidValue(2, 0);
-                field31.setText("X");
+                field31.setIcon(iconX);
                 setX(2, 0, 'X');
                 Sout(field);
                 field31.setEnabled(false);
@@ -134,7 +120,7 @@ public class TikTakToe extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 invalidValue(0, 1);
-                field12.setText("X");
+                field12.setIcon(iconX);
                 setX(0, 1, 'X');
                 Sout(field);
                 field12.setEnabled(false);
@@ -144,7 +130,7 @@ public class TikTakToe extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 invalidValue(1, 1);
-                field22.setText("X");
+                field22.setIcon(iconX);
                 setX(1, 1, 'X');
                 Sout(field);
                 field22.setEnabled(false);
@@ -154,7 +140,7 @@ public class TikTakToe extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 invalidValue(2, 1);
-                field32.setText("X");
+                field32.setIcon(iconX);
                 setX(2, 1, 'X');
                 Sout(field);
                 field32.setEnabled(false);
@@ -164,7 +150,7 @@ public class TikTakToe extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 invalidValue(0, 2);
-                field13.setText("X");
+                field13.setIcon(iconX);
                 setX(0, 2, 'X');
                 Sout(field);
                 field13.setEnabled(false);
@@ -174,7 +160,7 @@ public class TikTakToe extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 invalidValue(1, 2);
-                field23.setText("X");
+                field23.setIcon(iconX);
                 setX(1, 2, 'X');
                 Sout(field);
                 field23.setEnabled(false);
@@ -184,34 +170,12 @@ public class TikTakToe extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 invalidValue(2, 2);
-                field33.setText("X");
+                field33.setIcon(iconX);
                 setX(2, 2, 'X');
                 Sout(field);
                 field33.setEnabled(false);
             }
         });
-    }
-
-    public void setXImage() {
-        Image image = new ImageIcon("DRYEawRU8aA.jpg").getImage();
-        setContentPane(new JPanel(new BorderLayout()) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                g.drawImage(image, 0, 0, null);
-            }
-        });
-    }
-
-    public void initPanels() {
-        panel00.setBackground(Color.cyan);
-        panel01.add(new JLabel(iconH));
-        panel02.add(new JLabel(iconH));
-        panel10.add(new JLabel(iconH));
-        panel11.add(new JLabel(iconH));
-        panel12.add(new JLabel(iconH));
-        panel20.add(new JLabel(iconH));
-        panel21.add(new JLabel(iconH));
-        panel22.add(new JLabel(iconH));
     }
 
     public static void Sout(char[][] field) {
@@ -246,7 +210,7 @@ public class TikTakToe extends JFrame {
     }
 
     public void invalidValue(int x, int y) {
-        if (field[x][y] == o | field[x][y] == TikTakToe.x) {
+        if (field[x][y] == o | field[x][y] == TikTacToe.x) {
             try {
                 throw new CheckField();
             } catch (CheckField field) {
