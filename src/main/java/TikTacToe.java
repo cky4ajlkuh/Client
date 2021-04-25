@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TikTacToe extends JFrame {
+public class TikTacToe extends JFrame implements Runnable{
 
     private final static char x = 'X';
     private final static char o = 'O';
@@ -13,9 +13,6 @@ public class TikTacToe extends JFrame {
     private final static ImageIcon iconH = new ImageIcon("Screenshot 2021-04-15 222334.jpg");
     private final static ImageIcon iconX = new ImageIcon("Screenshot 2021-04-15 222216.jpg");
     private final static ImageIcon iconO = new ImageIcon("Screenshot 2021-04-15 222237.jpg");
-    private final static JLabel labelH = new JLabel(iconH);
-    private final static JLabel labelX = new JLabel(iconX);
-    private final static JLabel labelO = new JLabel(iconO);
 
     JMenu menu = new JMenu("Tik-Tak toe");
     JMenuBar bar = new JMenuBar();
@@ -82,9 +79,11 @@ public class TikTacToe extends JFrame {
                 )
 
         );
-        setVisible(false);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(new Dimension(1600, 1600));
+        setLocationRelativeTo(null);
+        setSize(new Dimension(1400, 1400));
 
         field11.addMouseListener(new MouseAdapter() {
             @Override
@@ -94,6 +93,10 @@ public class TikTacToe extends JFrame {
                 setX(0, 0, 'X');
                 Sout(field);
                 field11.setEnabled(false);
+                MyClient.array = new char[]{'0','0','X'};
+                for (int i = 0; i < MyClient.array.length; i++) {
+                    System.out.print(MyClient.array[i]);
+                }
             }
         });
         field21.addMouseListener(new MouseAdapter() {
@@ -104,6 +107,11 @@ public class TikTacToe extends JFrame {
                 setX(1, 0, 'X');
                 Sout(field);
                 field21.setEnabled(false);
+                MyClient.array = new char[]{'1','0','X'};
+                for (int i = 0; i < MyClient.array.length; i++) {
+                    System.out.print(MyClient.array[i]);
+                }
+
             }
         });
         field31.addMouseListener(new MouseAdapter() {
@@ -114,6 +122,10 @@ public class TikTacToe extends JFrame {
                 setX(2, 0, 'X');
                 Sout(field);
                 field31.setEnabled(false);
+                MyClient.array = new char[]{'2','0','X'};
+                for (int i = 0; i < MyClient.array.length; i++) {
+                    System.out.print(MyClient.array[i]);
+                }
             }
         });
         field12.addMouseListener(new MouseAdapter() {
@@ -195,7 +207,7 @@ public class TikTacToe extends JFrame {
         }
     }
 
-    private void setX(int x, int y, char value) {
+    public void setX(int x, int y, char value) {
         checkBorders(x, y);
         field[x][y] = value;
     }
@@ -218,5 +230,10 @@ public class TikTacToe extends JFrame {
                 field.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 }
