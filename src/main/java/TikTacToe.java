@@ -93,10 +93,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(0, 0, 'X');
                 Sout(field);
                 field11.setEnabled(false);
-                MyClient.array = new char[]{'0','0','X'};
-                for (int i = 0; i < MyClient.array.length; i++) {
-                    System.out.print(MyClient.array[i]);
-                }
+                MyClient.send(new char[]{'0','0','X'});
             }
         });
         field21.addMouseListener(new MouseAdapter() {
@@ -107,10 +104,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(1, 0, 'X');
                 Sout(field);
                 field21.setEnabled(false);
-                MyClient.array = new char[]{'1','0','X'};
-                for (int i = 0; i < MyClient.array.length; i++) {
-                    System.out.print(MyClient.array[i]);
-                }
+                MyClient.send(new char[]{'1','0','X'});
 
             }
         });
@@ -122,10 +116,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(2, 0, 'X');
                 Sout(field);
                 field31.setEnabled(false);
-                MyClient.array = new char[]{'2','0','X'};
-                for (int i = 0; i < MyClient.array.length; i++) {
-                    System.out.print(MyClient.array[i]);
-                }
+                MyClient.send(new char[]{'2','0','X'});
             }
         });
         field12.addMouseListener(new MouseAdapter() {
@@ -136,6 +127,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(0, 1, 'X');
                 Sout(field);
                 field12.setEnabled(false);
+                MyClient.send(new char[]{'0','1','X'});
             }
         });
         field22.addMouseListener(new MouseAdapter() {
@@ -146,6 +138,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(1, 1, 'X');
                 Sout(field);
                 field22.setEnabled(false);
+                MyClient.send(new char[]{'1','1','X'});
             }
         });
         field32.addMouseListener(new MouseAdapter() {
@@ -156,6 +149,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(2, 1, 'X');
                 Sout(field);
                 field32.setEnabled(false);
+                MyClient.send(new char[]{'2','1','X'});
             }
         });
         field13.addMouseListener(new MouseAdapter() {
@@ -166,6 +160,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(0, 2, 'X');
                 Sout(field);
                 field13.setEnabled(false);
+                MyClient.send(new char[]{'0','2','X'});
             }
         });
         field23.addMouseListener(new MouseAdapter() {
@@ -176,6 +171,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(1, 2, 'X');
                 Sout(field);
                 field23.setEnabled(false);
+                MyClient.send(new char[]{'1','2','X'});
             }
         });
         field33.addMouseListener(new MouseAdapter() {
@@ -186,6 +182,7 @@ public class TikTacToe extends JFrame implements Runnable{
                 setX(2, 2, 'X');
                 Sout(field);
                 field33.setEnabled(false);
+                MyClient.send(new char[]{'2','2','X'});
             }
         });
     }
