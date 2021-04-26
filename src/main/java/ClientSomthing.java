@@ -37,8 +37,6 @@ class ClientSomthing {
             // ошибке, кроме ошибки конструктора сокета:
             ClientSomthing.this.downService();
         }
-        // В противном случае сокет будет закрыт
-        // в методе run() нити.
     }
 
     /**
@@ -94,7 +92,6 @@ class ClientSomthing {
 
     // нить отправляющая сообщения приходящие с консоли на сервер
     public class WriteMsg extends Thread {
-
         @Override
         public void run() {
             while (true) {

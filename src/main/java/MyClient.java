@@ -6,10 +6,29 @@ import java.io.*;
 import java.net.Socket;
 
 public class MyClient extends JFrame implements Runnable {
-
+    private final static char x = 'X';
+    private final static char o = 'O';
+    private final static char zero = 'H';
+    private final static int size = 3;
+    private final static char[][] field = new char[size][size];
+    private final static ImageIcon iconH = new ImageIcon("Screenshot 2021-04-15 222334.jpg");
+    private final static ImageIcon iconX = new ImageIcon("Screenshot 2021-04-15 222216.jpg");
+    private final static ImageIcon iconO = new ImageIcon("Screenshot 2021-04-15 222237.jpg");
+    JMenu menu = new JMenu("Tik-Tak toe");
+    JMenuBar bar = new JMenuBar();
+    JButton start = new JButton("Start!");
+    JButton field11 = new JButton(" ", iconH);
+    JButton field12 = new JButton(" ", iconH);
+    JButton field13 = new JButton(" ", iconH);
+    JButton field21 = new JButton(" ", iconH);
+    JButton field22 = new JButton(" ", iconH);
+    JButton field23 = new JButton(" ", iconH);
+    JButton field31 = new JButton(" ", iconH);
+    JButton field32 = new JButton(" ", iconH);
+    JButton field33 = new JButton(" ", iconH);
     public static char[] array = new char[]{'H', 'H', 'H'};
     Socket client;
-    BufferedReader reader;
+    static BufferedReader reader;
     BufferedWriter writer;
 
     public static void main(String[] args) throws IOException {
@@ -24,56 +43,10 @@ public class MyClient extends JFrame implements Runnable {
             System.out.println("You play for the toe! ");
         }*/
         new Thread(new MyClient("A")).start();
+        new readArray();
     }
 
-    private void sendArray(char[] array) {
-        try {
-            writer.write(array);
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void run() {
-        try {
-            while (true) {
-                client = new Socket("127.0.0.1", 9999);
-                reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-                String str = reader.readLine();
-                System.out.println(str);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private final static char x = 'X';
-    private final static char o = 'O';
-    private final static char zero = 'H';
-    private final static int size = 3;
-    private final static char[][] field = new char[size][size];
-    private final static ImageIcon iconH = new ImageIcon("Screenshot 2021-04-15 222334.jpg");
-    private final static ImageIcon iconX = new ImageIcon("Screenshot 2021-04-15 222216.jpg");
-    private final static ImageIcon iconO = new ImageIcon("Screenshot 2021-04-15 222237.jpg");
-
-    JMenu menu = new JMenu("Tik-Tak toe");
-    JMenuBar bar = new JMenuBar();
-    JButton start = new JButton("Start!");
-    JButton field11 = new JButton(" ", iconH);
-    JButton field12 = new JButton(" ", iconH);
-    JButton field13 = new JButton(" ", iconH);
-    JButton field21 = new JButton(" ", iconH);
-    JButton field22 = new JButton(" ", iconH);
-    JButton field23 = new JButton(" ", iconH);
-    JButton field31 = new JButton(" ", iconH);
-    JButton field32 = new JButton(" ", iconH);
-    JButton field33 = new JButton(" ", iconH);
-
-    public MyClient(String s) throws IOException {
+    public MyClient(String s) {
         super(s);
         Image image = new ImageIcon("DRYEawRU8aA.jpg").getImage();
         setContentPane(new JPanel(new BorderLayout()) {
@@ -263,6 +236,21 @@ public class MyClient extends JFrame implements Runnable {
         return false;
     }
 
+    private void sendArray(char[] array) {
+        try {
+            writer.write(array[0] + " " + array[1] + " " + array[2]);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static class readArray extends Thread {
+        readArray() throws IOException {
+            System.out.println(MyClient.reader.read());
+        }
+    }
+
     public void invalidValue(int x, int y) {
         if (field[x][y] == o | field[x][y] == this.x) {
             try {
@@ -271,6 +259,21 @@ public class MyClient extends JFrame implements Runnable {
                 JOptionPane.showMessageDialog(this, ":c");
                 field.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                client = new Socket("127.0.0.1", 9999);
+                reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                String str = reader.readLine();
+                System.out.println(str);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
