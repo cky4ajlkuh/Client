@@ -1,7 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.*;
 import java.net.Socket;
 
@@ -9,6 +6,7 @@ public class MyClient extends JFrame implements Runnable {
 
     public static char[] array = new char[]{'H', 'H', 'H'};
     static Socket client;
+    public static int rand;
 
     static {
         try {
@@ -18,7 +16,16 @@ public class MyClient extends JFrame implements Runnable {
         }
     }
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+    static BufferedReader reader;
+
+    static {
+        try {
+            reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     static BufferedWriter writer;
 
     static {
@@ -31,16 +38,13 @@ public class MyClient extends JFrame implements Runnable {
 
 
     public static void main(String[] args) throws IOException {
-/*
-        int rand = reader.read();
-
+        rand = reader.read();
         System.out.println(rand);
-
         if (rand == 1) {
-            System.out.println("You play for the tac! ");
+            System.out.println("Вы играете за Крестики! ");
         } else if (rand == 0) {
-            System.out.println("You play for the toe! ");
-        }*/
+            System.out.println("Вы играете за Нолики! ");
+        }
         new Thread(new MyClient()).start();
         new TikTacToe("A");
     }
