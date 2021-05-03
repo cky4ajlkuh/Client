@@ -10,13 +10,12 @@ public class TikTacToe extends JFrame implements Runnable {
     private final static char zero = 'H';
     private final static int size = 3;
     private final static char[][] field = new char[size][size];
-    private final static ImageIcon iconH = new ImageIcon("Screenshot 2021-04-15 222334.jpg");
-    private final static ImageIcon iconX = new ImageIcon("Screenshot 2021-04-15 222216.jpg");
-    private final static ImageIcon iconO = new ImageIcon("Screenshot 2021-04-15 222237.jpg");
+    private final static ImageIcon iconH = new ImageIcon("-.png");
+    private final static ImageIcon iconX = new ImageIcon("x.png");
+    private final static ImageIcon iconO = new ImageIcon("o.png");
 
     JMenu menu = new JMenu("Tik-Tak toe");
     JMenuBar bar = new JMenuBar();
-    JButton start = new JButton("Start!");
     JButton field11 = new JButton(" ", iconH);
     JButton field12 = new JButton(" ", iconH);
     JButton field13 = new JButton(" ", iconH);
@@ -89,180 +88,192 @@ public class TikTacToe extends JFrame implements Runnable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(0, 0);
-                    field11.setIcon(iconO);
-                    setX(0, 0, 'O');
-                    Sout(field);
-                    field11.setEnabled(false);
-                    MyClient.send(new char[]{'0', '0', 'O'});
+                    if (field11.isEnabled()) {
+                        field11.setIcon(iconO);
+                        setX(0, 0, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'0', '0', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(0, 0);
-                    field11.setIcon(iconX);
-                    setX(0, 0, 'X');
-                    Sout(field);
-                    field11.setEnabled(false);
-                    MyClient.send(new char[]{'0', '0', 'X'});
+                    if (field11.isEnabled()) {
+                        field11.setIcon(iconX);
+                        setX(0, 0, 'X');
+                        Sout(field);
+                        MyClient.send(new char[]{'0', '0', 'X'});
+                    }
                 }
+                field11.setEnabled(false);
             }
         });
         field21.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(1, 0);
-                    field21.setIcon(iconO);
-                    setX(1, 0, 'O');
-                    Sout(field);
-                    field21.setEnabled(false);
-                    MyClient.send(new char[]{'1', '0', 'O'});
+                    if (field21.isEnabled()) {
+                        field21.setIcon(iconO);
+                        setX(1, 0, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'1', '0', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(1, 0);
-                    field21.setIcon(iconX);
-                    setX(1, 0, 'X');
-                    Sout(field);
-                    field21.setEnabled(false);
-                    MyClient.send(new char[]{'1', '0', 'X'});
+                    if (field21.isEnabled()) {
+                        field21.setIcon(iconX);
+                        setX(1, 0, 'X');
+                        Sout(field);
+                        MyClient.send(new char[]{'1', '0', 'X'});
+                    }
                 }
+                field21.setEnabled(false);
             }
         });
         field31.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(2, 0);
-                    field31.setIcon(iconO);
-                    setX(2, 0, 'O');
-                    Sout(field);
-                    field31.setEnabled(false);
-                    MyClient.send(new char[]{'2', '0', 'O'});
+                    if (field31.isEnabled()) {
+                        field31.setIcon(iconO);
+                        setX(2, 0, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'2', '0', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(2, 0);
-                    field31.setIcon(iconX);
-                    setX(2, 0, 'X');
-                    Sout(field);
-                    field31.setEnabled(false);
-                    MyClient.send(new char[]{'2', '0', 'X'});
+                    if (field31.isEnabled()) {
+                        field31.setIcon(iconX);
+                        setX(2, 0, 'X');
+                        Sout(field);
+                        MyClient.send(new char[]{'2', '0', 'X'});
+                    }
                 }
+                field31.setEnabled(false);
             }
         });
         field12.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(0, 1);
-                    field12.setIcon(iconO);
-                    setX(0, 1, 'O');
-                    Sout(field);
-                    field12.setEnabled(false);
-                    MyClient.send(new char[]{'0', '1', 'O'});
+                    if (field12.isEnabled()) {
+                        field12.setIcon(iconO);
+                        setX(0, 1, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'0', '1', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(0, 1);
-                    field12.setIcon(iconX);
-                    setX(0, 1, 'X');
-                    Sout(field);
-                    field12.setEnabled(false);
-                    MyClient.send(new char[]{'0', '1', 'X'});
+                    if (field12.isEnabled()) {
+                        field12.setIcon(iconX);
+                        setX(0, 1, 'X');
+                        Sout(field);
+                        MyClient.send(new char[]{'0', '1', 'X'});
+                    }
                 }
+                field12.setEnabled(false);
             }
         });
         field22.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(1, 1);
-                    field22.setIcon(iconO);
-                    setX(1, 1, 'O');
-                    Sout(field);
-                    field22.setEnabled(false);
-                    MyClient.send(new char[]{'1', '1', 'O'});
+                    if (field22.isEnabled()) {
+                        field22.setIcon(iconO);
+                        setX(1, 1, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'1', '1', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(1, 1);
-                    field22.setIcon(iconX);
-                    setX(1, 1, 'X');
-                    Sout(field);
-                    field22.setEnabled(false);
-                    MyClient.send(new char[]{'1', '1', 'X'});
+                    if (field22.isEnabled()) {
+                        field22.setIcon(iconX);
+                        setX(1, 1, 'X');
+                        Sout(field);
+                        MyClient.send(new char[]{'1', '1', 'X'});
+                    }
                 }
+                field22.setEnabled(false);
             }
         });
         field32.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(2, 1);
-                    field32.setIcon(iconO);
-                    setX(2, 1, 'O');
-                    Sout(field);
-                    field32.setEnabled(false);
-                    MyClient.send(new char[]{'2', '1', 'O'});
+                    if (field32.isEnabled()) {
+                        field32.setIcon(iconO);
+                        setX(2, 1, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'2', '1', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(2, 1);
-                    field32.setIcon(iconX);
-                    setX(2, 1, 'X');
-                    Sout(field);
-                    field32.setEnabled(false);
-                    MyClient.send(new char[]{'2', '1', 'X'});
+                    if (field32.isEnabled()) {
+                        field32.setIcon(iconX);
+                        setX(2, 1, 'X');
+                        Sout(field);
+                        MyClient.send(new char[]{'2', '1', 'X'});
+                    }
                 }
+                field32.setEnabled(false);
             }
         });
         field13.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(0, 2);
-                    field13.setIcon(iconO);
-                    setX(0, 2, 'O');
-                    Sout(field);
-                    field13.setEnabled(false);
-                    MyClient.send(new char[]{'0', '2', 'O'});
+                    if (field13.isEnabled()) {
+                        field13.setIcon(iconO);
+                        setX(0, 2, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'0', '2', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(0, 2);
-                    field13.setIcon(iconX);
-                    setX(0, 2, 'X');
-                    Sout(field);
-                    field13.setEnabled(false);
-                    MyClient.send(new char[]{'0', '2', 'X'});
+                    if (field13.isEnabled()) {
+                        field13.setIcon(iconX);
+                        setX(0, 2, 'X');
+                        Sout(field);
+                        field13.setEnabled(false);
+                        MyClient.send(new char[]{'0', '2', 'X'});
+                    }
                 }
+                field13.setEnabled(false);
             }
         });
         field23.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(1, 2);
-                    field23.setIcon(iconO);
-                    setX(1, 2, 'O');
-                    Sout(field);
-                    field23.setEnabled(false);
-                    MyClient.send(new char[]{'1', '2', 'O'});
+                    if (field23.isEnabled()) {
+                        field23.setIcon(iconO);
+                        setX(1, 2, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'1', '2', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(1, 2);
-                    field23.setIcon(iconX);
-                    setX(1, 2, 'X');
-                    Sout(field);
-                    field23.setEnabled(false);
-                    MyClient.send(new char[]{'1', '2', 'X'});
+                    if (field23.isEnabled()) {
+                        field23.setIcon(iconX);
+                        setX(1, 2, 'X');
+                        Sout(field);
+                        field23.setEnabled(false);
+                        MyClient.send(new char[]{'1', '2', 'X'});
+                    }
                 }
+                field23.setEnabled(false);
             }
         });
+
         field33.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    invalidValue(2, 2);
-                    field33.setIcon(iconO);
-                    setX(2, 2, 'O');
-                    Sout(field);
-                    field33.setEnabled(false);
-                    MyClient.send(new char[]{'2', '2', 'O'});
+                    if (field33.isEnabled()) {
+                        field33.setIcon(iconO);
+                        setX(2, 2, 'O');
+                        Sout(field);
+                        MyClient.send(new char[]{'2', '2', 'O'});
+                    }
                 } else if (MyClient.rand == 1) {
-                    invalidValue(2, 2);
-                    field33.setIcon(iconX);
-                    setX(2, 2, 'X');
-                    Sout(field);
-                    field33.setEnabled(false);
-                    MyClient.send(new char[]{'2', '2', 'X'});
+                    if (field33.isEnabled()) {
+                        field33.setIcon(iconX);
+                        setX(2, 2, 'X');
+                        Sout(field);
+                        MyClient.send(new char[]{'2', '2', 'X'});
+                    }
                 }
+                field33.setEnabled(false);
             }
         });
     }
