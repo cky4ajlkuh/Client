@@ -5,8 +5,6 @@ import java.awt.event.MouseEvent;
 
 public class TikTacToe extends JFrame implements Runnable {
 
-    private final static char x = 'X';
-    private final static char o = 'O';
     private final static char zero = 'H';
     private final static int size = 3;
     private final static char[][] field = new char[size][size];
@@ -296,28 +294,7 @@ public class TikTacToe extends JFrame implements Runnable {
     }
 
     public void setX(int x, int y, char value) {
-        checkBorders(x, y);
         field[x][y] = value;
-    }
-
-    private boolean checkBorders(int x, int y) {
-        if (x < size || y < size) {
-            if (x > 0 || y > 0) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void invalidValue(int x, int y) {
-        if (field[x][y] == o | field[x][y] == TikTacToe.x) {
-            try {
-                throw new CheckField();
-            } catch (CheckField field) {
-                JOptionPane.showMessageDialog(this, ":c");
-                field.printStackTrace();
-            }
-        }
     }
 
     @Override
