@@ -33,6 +33,12 @@ public class TikTacToe extends JFrame implements Runnable {
                 g.drawImage(image, 0, 0, null);
             }
         });
+        if (MyClient.rand == 0) {
+            JOptionPane.showMessageDialog(this, "Вы играете за Нолики! ");
+        }
+        if (MyClient.rand == 1) {
+            JOptionPane.showMessageDialog(this, "Вы играете за Крестики! ");
+        }
         initialization();
         Sout(field);
         bar.add(menu);
