@@ -2,27 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class TikTacToe extends JFrame implements Runnable {
 
-    private final static char zero = 'H';
-    private final static int size = 3;
-    private final static char[][] field = new char[size][size];
     private final static ImageIcon iconH = new ImageIcon("-.png");
     private final static ImageIcon iconX = new ImageIcon("x.png");
     private final static ImageIcon iconO = new ImageIcon("o.png");
 
-    JMenu menu = new JMenu("Tik-Tak toe");
+    public static final ArrayList<JButton> jButtons = new ArrayList<>();
+    private static final ArrayList<JButton> block = new ArrayList<>();
+    private static final ArrayList<Integer> array = new ArrayList<>();
+    JMenu menu = new JMenu("Tik-Tac Toe");
     JMenuBar bar = new JMenuBar();
-    JButton field11 = new JButton(" ", iconH);
-    JButton field12 = new JButton(" ", iconH);
-    JButton field13 = new JButton(" ", iconH);
-    JButton field21 = new JButton(" ", iconH);
-    JButton field22 = new JButton(" ", iconH);
-    JButton field23 = new JButton(" ", iconH);
-    JButton field31 = new JButton(" ", iconH);
-    JButton field32 = new JButton(" ", iconH);
-    JButton field33 = new JButton(" ", iconH);
 
     public TikTacToe(String s) {
         super(s);
@@ -33,275 +26,257 @@ public class TikTacToe extends JFrame implements Runnable {
                 g.drawImage(image, 0, 0, null);
             }
         });
+
+        for (int i = 0; i < 9; i++) {
+            jButtons.add(new JButton(" ", iconH));
+        }
+
         if (MyClient.rand == 0) {
             JOptionPane.showMessageDialog(this, "Вы играете за Нолики! ");
+            for (int i = 0; i < 9; i++) {
+                jButtons.get(i).setEnabled(false);
+            }
         }
         if (MyClient.rand == 1) {
             JOptionPane.showMessageDialog(this, "Вы играете за Крестики! ");
         }
-        initialization();
-        Sout(field);
+
         bar.add(menu);
         setJMenuBar(bar);
+
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(field11)
-                        .addComponent(field21)
-                        .addComponent(field31)
+                        .addComponent(jButtons.get(0))
+                        .addComponent(jButtons.get(1))
+                        .addComponent(jButtons.get(2))
                 )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(field12)
-                        .addComponent(field22)
-                        .addComponent(field32)
+                        .addComponent(jButtons.get(3))
+                        .addComponent(jButtons.get(4))
+                        .addComponent(jButtons.get(5))
                 )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(field13)
-                        .addComponent(field23)
-                        .addComponent(field33)
+                        .addComponent(jButtons.get(6))
+                        .addComponent(jButtons.get(7))
+                        .addComponent(jButtons.get(8))
                 )
         );
         layout.setVerticalGroup(layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                        .addComponent(field11)
-                        .addComponent(field21)
-                        .addComponent(field31)
+                        .addComponent(jButtons.get(0))
+                        .addComponent(jButtons.get(1))
+                        .addComponent(jButtons.get(2))
                 )
                 .addGroup(layout.createSequentialGroup()
-                        .addComponent(field12)
-                        .addComponent(field22)
-                        .addComponent(field32)
+                        .addComponent(jButtons.get(3))
+                        .addComponent(jButtons.get(4))
+                        .addComponent(jButtons.get(5))
                 )
                 .addGroup(layout.createSequentialGroup()
-                        .addComponent(field13)
-                        .addComponent(field23)
-                        .addComponent(field33)
+                        .addComponent(jButtons.get(6))
+                        .addComponent(jButtons.get(7))
+                        .addComponent(jButtons.get(8))
                 )
-
         );
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
-        setSize(new Dimension(1400, 1400));
+        setSize(new Dimension(1000, 1000));
 
-        field11.addMouseListener(new MouseAdapter() {
+        jButtons.get(0).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field11.isEnabled()) {
-                        field11.setIcon(iconO);
-                        setX(0, 0, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'0', '0', 'O'});
+                    if (jButtons.get(0).isEnabled()) {
+                        jButtons.get(0).setIcon(iconO);
+                        MyClient.send(new char[]{'0', 'O'});
+                        array.add(0);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field11.isEnabled()) {
-                        field11.setIcon(iconX);
-                        setX(0, 0, 'X');
-                        Sout(field);
-                        MyClient.send(new char[]{'0', '0', 'X'});
+                    if (jButtons.get(0).isEnabled()) {
+                        jButtons.get(0).setIcon(iconX);
+                        MyClient.send(new char[]{'0', 'X'});
+                        array.add(0);
                     }
                 }
-                field11.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
-        field21.addMouseListener(new MouseAdapter() {
+        jButtons.get(1).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field21.isEnabled()) {
-                        field21.setIcon(iconO);
-                        setX(1, 0, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'1', '0', 'O'});
+                    if (jButtons.get(1).isEnabled()) {
+                        jButtons.get(1).setIcon(iconO);
+                        MyClient.send(new char[]{'1', 'O'});
+                        array.add(1);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field21.isEnabled()) {
-                        field21.setIcon(iconX);
-                        setX(1, 0, 'X');
-                        Sout(field);
-                        MyClient.send(new char[]{'1', '0', 'X'});
+                    if (jButtons.get(1).isEnabled()) {
+                        jButtons.get(1).setIcon(iconX);
+                        MyClient.send(new char[]{'1', 'X'});
+                        array.add(1);
                     }
                 }
-                field21.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
-        field31.addMouseListener(new MouseAdapter() {
+        jButtons.get(2).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field31.isEnabled()) {
-                        field31.setIcon(iconO);
-                        setX(2, 0, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'2', '0', 'O'});
+                    if (jButtons.get(2).isEnabled()) {
+                        jButtons.get(2).setIcon(iconO);
+                        MyClient.send(new char[]{'2', 'O'});
+                        array.add(2);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field31.isEnabled()) {
-                        field31.setIcon(iconX);
-                        setX(2, 0, 'X');
-                        Sout(field);
-                        MyClient.send(new char[]{'2', '0', 'X'});
+                    if (jButtons.get(2).isEnabled()) {
+                        jButtons.get(2).setIcon(iconX);
+                        MyClient.send(new char[]{'2', 'X'});
+                        array.add(2);
                     }
                 }
-                field31.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
-        field12.addMouseListener(new MouseAdapter() {
+        jButtons.get(3).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field12.isEnabled()) {
-                        field12.setIcon(iconO);
-                        setX(0, 1, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'0', '1', 'O'});
+                    if (jButtons.get(3).isEnabled()) {
+                        jButtons.get(3).setIcon(iconO);
+                        MyClient.send(new char[]{'3', 'O'});
+                        array.add(3);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field12.isEnabled()) {
-                        field12.setIcon(iconX);
-                        setX(0, 1, 'X');
-                        Sout(field);
-                        MyClient.send(new char[]{'0', '1', 'X'});
+                    if (jButtons.get(3).isEnabled()) {
+                        jButtons.get(3).setIcon(iconX);
+                        MyClient.send(new char[]{'3', 'X'});
+                        array.add(3);
                     }
                 }
-                field12.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
-        field22.addMouseListener(new MouseAdapter() {
+        jButtons.get(4).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field22.isEnabled()) {
-                        field22.setIcon(iconO);
-                        setX(1, 1, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'1', '1', 'O'});
+                    if (jButtons.get(4).isEnabled()) {
+                        jButtons.get(4).setIcon(iconO);
+                        MyClient.send(new char[]{'4', 'O'});
+                        array.add(4);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field22.isEnabled()) {
-                        field22.setIcon(iconX);
-                        setX(1, 1, 'X');
-                        Sout(field);
-                        MyClient.send(new char[]{'1', '1', 'X'});
+                    if (jButtons.get(4).isEnabled()) {
+                        jButtons.get(4).setIcon(iconX);
+                        MyClient.send(new char[]{'4', 'X'});
+                        array.add(4);
                     }
                 }
-                field22.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
-        field32.addMouseListener(new MouseAdapter() {
+        jButtons.get(5).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field32.isEnabled()) {
-                        field32.setIcon(iconO);
-                        setX(2, 1, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'2', '1', 'O'});
+                    if (jButtons.get(5).isEnabled()) {
+                        jButtons.get(5).setIcon(iconO);
+                        MyClient.send(new char[]{'5', 'O'});
+                        array.add(5);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field32.isEnabled()) {
-                        field32.setIcon(iconX);
-                        setX(2, 1, 'X');
-                        Sout(field);
-                        MyClient.send(new char[]{'2', '1', 'X'});
+                    if (jButtons.get(5).isEnabled()) {
+                        jButtons.get(5).setIcon(iconX);
+                        MyClient.send(new char[]{'5', 'X'});
+                        array.add(5);
                     }
                 }
-                field32.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
-        field13.addMouseListener(new MouseAdapter() {
+        jButtons.get(6).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field13.isEnabled()) {
-                        field13.setIcon(iconO);
-                        setX(0, 2, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'0', '2', 'O'});
+                    if (jButtons.get(6).isEnabled()) {
+                        jButtons.get(6).setIcon(iconO);
+                        MyClient.send(new char[]{'6', 'O'});
+                        array.add(6);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field13.isEnabled()) {
-                        field13.setIcon(iconX);
-                        setX(0, 2, 'X');
-                        Sout(field);
-                        field13.setEnabled(false);
-                        MyClient.send(new char[]{'0', '2', 'X'});
+                    if (jButtons.get(6).isEnabled()) {
+                        jButtons.get(6).setIcon(iconX);
+                        MyClient.send(new char[]{'6', 'X'});
+                        array.add(6);
                     }
                 }
-                field13.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
-        field23.addMouseListener(new MouseAdapter() {
+        jButtons.get(7).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field23.isEnabled()) {
-                        field23.setIcon(iconO);
-                        setX(1, 2, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'1', '2', 'O'});
+                    if (jButtons.get(7).isEnabled()) {
+                        jButtons.get(7).setIcon(iconO);
+                        MyClient.send(new char[]{'7', 'O'});
+                        array.add(7);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field23.isEnabled()) {
-                        field23.setIcon(iconX);
-                        setX(1, 2, 'X');
-                        Sout(field);
-                        field23.setEnabled(false);
-                        MyClient.send(new char[]{'1', '2', 'X'});
+                    if (jButtons.get(7).isEnabled()) {
+                        jButtons.get(7).setIcon(iconX);
+                        MyClient.send(new char[]{'7', 'X'});
+                        array.add(7);
                     }
                 }
-                field23.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
 
-        field33.addMouseListener(new MouseAdapter() {
+        jButtons.get(8).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (MyClient.rand == 0) {
-                    if (field33.isEnabled()) {
-                        field33.setIcon(iconO);
-                        setX(2, 2, 'O');
-                        Sout(field);
-                        MyClient.send(new char[]{'2', '2', 'O'});
+                    if (jButtons.get(8).isEnabled()) {
+                        jButtons.get(8).setIcon(iconO);
+                        MyClient.send(new char[]{'8', 'O'});
+                        array.add(8);
                     }
                 } else if (MyClient.rand == 1) {
-                    if (field33.isEnabled()) {
-                        field33.setIcon(iconX);
-                        setX(2, 2, 'X');
-                        Sout(field);
-                        MyClient.send(new char[]{'2', '2', 'X'});
+                    if (jButtons.get(8).isEnabled()) {
+                        jButtons.get(8).setIcon(iconX);
+                        MyClient.send(new char[]{'8', 'X'});
+                        array.add(8);
                     }
                 }
-                field33.setEnabled(false);
+                jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
     }
 
-    public static void Sout(char[][] field) {
-        for (char[] chars : field) {
-            for (int j = 0; j < field.length; j++) {
-                System.out.print(chars[j] + " ");
-            }
-            System.out.println();
+    public static void checkValue() {
+        int j = Character.getNumericValue(MyClient.str[0]);
+        array.add(j);
+        jButtons.forEach(jButton -> jButton.setEnabled(true));
+        for (Integer integer : array) {
+            jButtons.get(integer).setEnabled(false);
+        }
+        if (MyClient.rand == 1) {
+            jButtons.get(j).setIcon(iconO);
+        }
+        if (MyClient.rand == 0) {
+            jButtons.get(j).setIcon(iconX);
         }
     }
 
-    public static void initialization() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                field[i][j] = zero;
-            }
-        }
-    }
-
-    public void setX(int x, int y, char value) {
-        field[x][y] = value;
-    }
 
     @Override
     public void run() {

@@ -4,7 +4,7 @@ import java.net.Socket;
 
 public class MyClient extends JFrame implements Runnable {
     static Socket client;
-    public static int rand;
+    public static int rand = 0;
     public static char[] str;
 
     static {
@@ -44,7 +44,7 @@ public class MyClient extends JFrame implements Runnable {
             System.out.println("Вы играете за Нолики! ");
         }
         new Thread(new MyClient()).start();
-        new TikTacToe("A");
+        new TikTacToe("Tik-Tac Toe");
         reading();
     }
 
@@ -56,6 +56,7 @@ public class MyClient extends JFrame implements Runnable {
             while (!client.isClosed()) {
                 str = reader.readLine().toCharArray();
                 System.out.println(str);
+                TikTacToe.checkValue();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,10 +65,9 @@ public class MyClient extends JFrame implements Runnable {
 
     public static void send(char[] array) {
         try {
-            String str = array[0] + " " + array[1] + " " + array[2];
+            String str = array[0] + " " + array[1];
             writer.write(str + '\n');
             writer.flush();
-            System.out.println("array is send!");
         } catch (IOException ignored) {
         }
     }
