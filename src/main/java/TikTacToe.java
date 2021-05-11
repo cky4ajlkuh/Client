@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 
 public class TikTacToe extends JFrame implements Runnable {
 
@@ -12,8 +11,9 @@ public class TikTacToe extends JFrame implements Runnable {
     private final static ImageIcon iconO = new ImageIcon("o.png");
 
     public static final ArrayList<JButton> jButtons = new ArrayList<>();
-    private static final ArrayList<JButton> block = new ArrayList<>();
     private static final ArrayList<Integer> array = new ArrayList<>();
+    public static final ArrayList<String> value = new ArrayList<>();
+    public static final ArrayList<Character> numbers = new ArrayList<>();
     JMenu menu = new JMenu("Tik-Tac Toe");
     JMenuBar bar = new JMenuBar();
 
@@ -262,8 +262,187 @@ public class TikTacToe extends JFrame implements Runnable {
         });
     }
 
+    public static void finish() {
+        if (numbers.size() >= 5) {
+            for (int i = 0; i < numbers.size(); i++) {
+                for (int j = 0; j < numbers.size(); j++) {
+                    for (int k = 0; k < numbers.size(); k++) {
+                        if (numbers.get(i) == '0') {
+                            if (numbers.get(j) == '1') {
+                                if (numbers.get(k) == '2') {
+                                    if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                        JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                                    }
+                                    if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                        JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                                    }
+                                }
+                            }
+                            if (numbers.get(j) == '3') {
+                                if (numbers.get(k) == '6') {
+                                    if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                        JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                                    }
+                                    if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                        JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                                    }
+                                }
+                            }
+                        }
+                        if (numbers.get(i) == '1') {
+                            if (numbers.get(j) == '4') {
+                                if (numbers.get(k) == '7') {
+                                    if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                        JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                                    }
+                                    if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                        JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                                    }
+                                }
+                            }
+                        }
+                        if (numbers.get(i) == '2') {
+                            if (numbers.get(j) == '5') {
+                                if (numbers.get(k) == '8') {
+                                    if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                        JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                                    }
+                                    if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                        JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                                    }
+                                }
+                            }
+                        }
+                        if (numbers.get(i) == '3') {
+                            if (numbers.get(j) == '4') {
+                                if (numbers.get(k) == '5') {
+                                    if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                        JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                                    }
+                                    if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                        JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                                    }
+                                }
+                            }
+                        }
+                        if (numbers.get(i) == '6') {
+                            if (numbers.get(j) == '7') {
+                                if (numbers.get(k) == '8') {
+                                    if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                        JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                                    }
+                                    if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                        JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                                    }
+                                }
+                            }
+                        }
+                        if (numbers.get(i) == '0') {
+                            if (numbers.get(j) == '4') {
+                                if (numbers.get(k) == '8') {
+                                    if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                        JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                                    }
+                                    if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                        JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                                    }
+                                }
+                            }
+                        }
+                        if (numbers.get(i) == '2') {
+                            if (numbers.get(j) == '4') {
+                                if (numbers.get(k) == '6') {
+                                    if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                        JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                                    }
+                                    if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                        JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                                    }
+                                }
+                            }
+                        }
+                        if (numbers.size() == 18) {
+                            JOptionPane.showMessageDialog(null, "Ничья! ");
+                            break;
+
+                        }
+                    }
+                }
+                /*
+                for (int j = i; j < numbers.size(); j++) {
+                    for (int k = j; k < numbers.size(); k++) {
+                        if ('0' == numbers.get(i) && '1' == numbers.get(j) && '2' == numbers.get(k)) {
+                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                            }
+                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                            }
+                        }
+                        if ('3' == numbers.get(i) && '4' == numbers.get(j) && '5' == numbers.get(k)) {
+                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                            }
+                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                            }
+                        }
+                        if ('6' == numbers.get(i) && '7' == numbers.get(j) && '8' == numbers.get(k)) {
+                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                            }
+                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                            }
+                        }
+                        if ('0' == numbers.get(i) && '3' == numbers.get(j) && '6' == numbers.get(k)) {
+                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                            }
+                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                            }
+                        }
+                        if ('1' == numbers.get(i) && '4' == numbers.get(j) && '7' == numbers.get(k)) {
+                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                            }
+                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                            }
+                        }
+                        if ('2' == numbers.get(i) && '5' == numbers.get(j) && '8' == numbers.get(k)) {
+                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                            }
+                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                            }
+                        }
+                        if ('0' == numbers.get(i) && '4' == numbers.get(j) && '8' == numbers.get(k)) {
+                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                            }
+                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                            }
+                        }
+                        if ('2' == numbers.get(i) && '4' == numbers.get(j) && '6' == numbers.get(k)) {
+                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
+                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
+                            }
+                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
+                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
+                            }
+                        }
+                    }
+                }*/
+            }
+        }
+    }
+
     public static void checkValue() {
-        int j = Character.getNumericValue(MyClient.str[0]);
+        int j = Character.getNumericValue(MyClient.array[0]);
         array.add(j);
         jButtons.forEach(jButton -> jButton.setEnabled(true));
         for (Integer integer : array) {
@@ -277,9 +456,7 @@ public class TikTacToe extends JFrame implements Runnable {
         }
     }
 
-
     @Override
     public void run() {
-
     }
 }

@@ -5,8 +5,8 @@ import java.net.Socket;
 public class MyClient extends JFrame implements Runnable {
     static Socket client;
     public static int rand = 0;
-    public static char[] str;
-
+    public static char[] array;
+    public static String str;
     static {
         try {
             client = new Socket("127.0.0.1", 9999);
@@ -54,9 +54,11 @@ public class MyClient extends JFrame implements Runnable {
     public static void reading() {
         try {
             while (!client.isClosed()) {
-                str = reader.readLine().toCharArray();
-                System.out.println(str);
+                array = reader.readLine().toCharArray();
+                TikTacToe.numbers.add(array[0]);
+                TikTacToe.numbers.add(array[2]);
                 TikTacToe.checkValue();
+                TikTacToe.finish();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,9 +67,12 @@ public class MyClient extends JFrame implements Runnable {
 
     public static void send(char[] array) {
         try {
-            String str = array[0] + " " + array[1];
+            str = array[0] + " " + array[1];
             writer.write(str + '\n');
             writer.flush();
+            TikTacToe.numbers.add(array[0]);
+            TikTacToe.numbers.add(array[1]);
+            TikTacToe.finish();
         } catch (IOException ignored) {
         }
     }
