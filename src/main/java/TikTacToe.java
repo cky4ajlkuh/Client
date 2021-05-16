@@ -1,7 +1,11 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 public class TikTacToe extends JFrame implements Runnable {
@@ -10,12 +14,12 @@ public class TikTacToe extends JFrame implements Runnable {
     private final static ImageIcon iconX = new ImageIcon("x.png");
     private final static ImageIcon iconO = new ImageIcon("o.png");
 
+    public static final ArrayList<Sosiska> sosiski = new ArrayList<>();
     public static final ArrayList<JButton> jButtons = new ArrayList<>();
-    private static final ArrayList<Integer> array = new ArrayList<>();
-    public static final ArrayList<String> value = new ArrayList<>();
     public static final ArrayList<Character> numbers = new ArrayList<>();
     JMenu menu = new JMenu("Tik-Tac Toe");
     JMenuBar bar = new JMenuBar();
+
 
     public TikTacToe(String s) {
         super(s);
@@ -91,55 +95,57 @@ public class TikTacToe extends JFrame implements Runnable {
         jButtons.get(0).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(0).isEnabled()) {
-                        jButtons.get(0).setIcon(iconO);
-                        MyClient.send(new char[]{'0', 'O'});
-                        array.add(0);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(0).isEnabled()) {
-                        jButtons.get(0).setIcon(iconX);
-                        MyClient.send(new char[]{'0', 'X'});
-                        array.add(0);
+                if (jButtons.get(0).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(0).setIcon(iconO);
+                            MyClient.send(string(0, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(0).setIcon(iconX);
+                            MyClient.send(string(0, 'X'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
+
         jButtons.get(1).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(1).isEnabled()) {
-                        jButtons.get(1).setIcon(iconO);
-                        MyClient.send(new char[]{'1', 'O'});
-                        array.add(1);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(1).isEnabled()) {
-                        jButtons.get(1).setIcon(iconX);
-                        MyClient.send(new char[]{'1', 'X'});
-                        array.add(1);
+                if (jButtons.get(1).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(1).setIcon(iconO);
+                            MyClient.send(string(1, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(1).setIcon(iconX);
+                            MyClient.send(string(1, 'X'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
+
         jButtons.get(2).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(2).isEnabled()) {
-                        jButtons.get(2).setIcon(iconO);
-                        MyClient.send(new char[]{'2', 'O'});
-                        array.add(2);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(2).isEnabled()) {
-                        jButtons.get(2).setIcon(iconX);
-                        MyClient.send(new char[]{'2', 'X'});
-                        array.add(2);
+                if (jButtons.get(2).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(2).setIcon(iconO);
+                            MyClient.send(string(2, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(2).setIcon(iconX);
+                            MyClient.send(string(2, 'X'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
@@ -148,17 +154,17 @@ public class TikTacToe extends JFrame implements Runnable {
         jButtons.get(3).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(3).isEnabled()) {
-                        jButtons.get(3).setIcon(iconO);
-                        MyClient.send(new char[]{'3', 'O'});
-                        array.add(3);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(3).isEnabled()) {
-                        jButtons.get(3).setIcon(iconX);
-                        MyClient.send(new char[]{'3', 'X'});
-                        array.add(3);
+                if (jButtons.get(3).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(3).setIcon(iconO);
+                            MyClient.send(string(3, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(3).setIcon(iconX);
+                            MyClient.send(string(3, 'X'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
@@ -167,17 +173,17 @@ public class TikTacToe extends JFrame implements Runnable {
         jButtons.get(4).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(4).isEnabled()) {
-                        jButtons.get(4).setIcon(iconO);
-                        MyClient.send(new char[]{'4', 'O'});
-                        array.add(4);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(4).isEnabled()) {
-                        jButtons.get(4).setIcon(iconX);
-                        MyClient.send(new char[]{'4', 'X'});
-                        array.add(4);
+                if (jButtons.get(4).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(4).setIcon(iconO);
+                            MyClient.send(string(4, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(4).setIcon(iconX);
+                            MyClient.send(string(4, 'X'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
@@ -186,17 +192,17 @@ public class TikTacToe extends JFrame implements Runnable {
         jButtons.get(5).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(5).isEnabled()) {
-                        jButtons.get(5).setIcon(iconO);
-                        MyClient.send(new char[]{'5', 'O'});
-                        array.add(5);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(5).isEnabled()) {
-                        jButtons.get(5).setIcon(iconX);
-                        MyClient.send(new char[]{'5', 'X'});
-                        array.add(5);
+                if (jButtons.get(5).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(5).setIcon(iconO);
+                            MyClient.send(string(5, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(5).setIcon(iconX);
+                            MyClient.send(string(5, 'O'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
@@ -205,17 +211,17 @@ public class TikTacToe extends JFrame implements Runnable {
         jButtons.get(6).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(6).isEnabled()) {
-                        jButtons.get(6).setIcon(iconO);
-                        MyClient.send(new char[]{'6', 'O'});
-                        array.add(6);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(6).isEnabled()) {
-                        jButtons.get(6).setIcon(iconX);
-                        MyClient.send(new char[]{'6', 'X'});
-                        array.add(6);
+                if (jButtons.get(6).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(6).setIcon(iconO);
+                            MyClient.send(string(6, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(6).setIcon(iconX);
+                            MyClient.send(string(6, 'X'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
@@ -224,17 +230,17 @@ public class TikTacToe extends JFrame implements Runnable {
         jButtons.get(7).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(7).isEnabled()) {
-                        jButtons.get(7).setIcon(iconO);
-                        MyClient.send(new char[]{'7', 'O'});
-                        array.add(7);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(7).isEnabled()) {
-                        jButtons.get(7).setIcon(iconX);
-                        MyClient.send(new char[]{'7', 'X'});
-                        array.add(7);
+                if (jButtons.get(7).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(7).setIcon(iconO);
+                            MyClient.send(string(7, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(7).setIcon(iconX);
+                            MyClient.send(string(7, 'X'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
@@ -244,24 +250,24 @@ public class TikTacToe extends JFrame implements Runnable {
         jButtons.get(8).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (MyClient.rand == 0) {
-                    if (jButtons.get(8).isEnabled()) {
-                        jButtons.get(8).setIcon(iconO);
-                        MyClient.send(new char[]{'8', 'O'});
-                        array.add(8);
-                    }
-                } else if (MyClient.rand == 1) {
-                    if (jButtons.get(8).isEnabled()) {
-                        jButtons.get(8).setIcon(iconX);
-                        MyClient.send(new char[]{'8', 'X'});
-                        array.add(8);
+                if (jButtons.get(8).isEnabled()) {
+                    try {
+                        if (MyClient.rand == 0) {
+                            jButtons.get(8).setIcon(iconO);
+                            MyClient.send(string(8, 'O'));
+                        } else if (MyClient.rand == 1) {
+                            jButtons.get(8).setIcon(iconX);
+                            MyClient.send(string(8, 'X'));
+                        }
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
                     }
                 }
                 jButtons.forEach(jButton -> jButton.setEnabled(false));
             }
         });
     }
-
+/*
     public static void finish() {
         if (numbers.size() >= 5) {
             for (int i = 0; i < numbers.size(); i++) {
@@ -368,75 +374,6 @@ public class TikTacToe extends JFrame implements Runnable {
                         }
                     }
                 }
-                /*
-                for (int j = i; j < numbers.size(); j++) {
-                    for (int k = j; k < numbers.size(); k++) {
-                        if ('0' == numbers.get(i) && '1' == numbers.get(j) && '2' == numbers.get(k)) {
-                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
-                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
-                            }
-                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
-                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
-                            }
-                        }
-                        if ('3' == numbers.get(i) && '4' == numbers.get(j) && '5' == numbers.get(k)) {
-                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
-                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
-                            }
-                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
-                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
-                            }
-                        }
-                        if ('6' == numbers.get(i) && '7' == numbers.get(j) && '8' == numbers.get(k)) {
-                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
-                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
-                            }
-                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
-                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
-                            }
-                        }
-                        if ('0' == numbers.get(i) && '3' == numbers.get(j) && '6' == numbers.get(k)) {
-                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
-                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
-                            }
-                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
-                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
-                            }
-                        }
-                        if ('1' == numbers.get(i) && '4' == numbers.get(j) && '7' == numbers.get(k)) {
-                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
-                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
-                            }
-                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
-                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
-                            }
-                        }
-                        if ('2' == numbers.get(i) && '5' == numbers.get(j) && '8' == numbers.get(k)) {
-                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
-                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
-                            }
-                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
-                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
-                            }
-                        }
-                        if ('0' == numbers.get(i) && '4' == numbers.get(j) && '8' == numbers.get(k)) {
-                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
-                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
-                            }
-                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
-                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
-                            }
-                        }
-                        if ('2' == numbers.get(i) && '4' == numbers.get(j) && '6' == numbers.get(k)) {
-                            if (numbers.get(i + 1) == 'X' && numbers.get(j + 1) == 'X' && numbers.get(k + 1) == 'X') {
-                                JOptionPane.showMessageDialog(null, "Крестики победили! ");
-                            }
-                            if (numbers.get(i + 1) == 'O' && numbers.get(j + 1) == 'O' && numbers.get(k + 1) == 'O') {
-                                JOptionPane.showMessageDialog(null, "Нолики победили! ");
-                            }
-                        }
-                    }
-                }*/
             }
         }
     }
@@ -454,6 +391,15 @@ public class TikTacToe extends JFrame implements Runnable {
         if (MyClient.rand == 0) {
             jButtons.get(j).setIcon(iconX);
         }
+    }
+*/
+
+    private String string(int number, char value) throws IOException {
+        sosiski.add(new Sosiska(number, value));
+        ObjectMapper mapper = new ObjectMapper();
+        StringWriter stringWriter = new StringWriter();
+        mapper.writeValue(stringWriter, new Sosiska(number, value));
+        return stringWriter.toString();
     }
 
     @Override

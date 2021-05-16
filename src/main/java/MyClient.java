@@ -7,6 +7,7 @@ public class MyClient extends JFrame implements Runnable {
     public static int rand = 0;
     public static char[] array;
     public static String str;
+
     static {
         try {
             client = new Socket("127.0.0.1", 9999);
@@ -57,22 +58,23 @@ public class MyClient extends JFrame implements Runnable {
                 array = reader.readLine().toCharArray();
                 TikTacToe.numbers.add(array[0]);
                 TikTacToe.numbers.add(array[2]);
-                TikTacToe.checkValue();
-                TikTacToe.finish();
+                // TikTacToe.checkValue();
+                // TikTacToe.finish();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void send(char[] array) {
+    public static void send(String s) {
         try {
-            str = array[0] + " " + array[1];
-            writer.write(str + '\n');
+            //str = array[0] + " " + array[1];
+            writer.write(s + '\n');
             writer.flush();
-            TikTacToe.numbers.add(array[0]);
-            TikTacToe.numbers.add(array[1]);
-            TikTacToe.finish();
+            //TikTacToe.numbers.add(array[0]);
+            //TikTacToe.numbers.add(array[1]);
+            //   TikTacToe.finish();
+            System.out.println("Птичка улетела");
         } catch (IOException ignored) {
         }
     }
