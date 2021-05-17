@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.xstream.XStream;
+
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
@@ -5,8 +8,6 @@ import java.net.Socket;
 public class MyClient extends JFrame implements Runnable {
     static Socket client;
     public static int rand = 0;
-    public static char[] array;
-    public static String str;
 
     static {
         try {
@@ -37,8 +38,11 @@ public class MyClient extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) throws IOException {
-        rand = reader.read();
-        System.out.println(rand);
+        String who = reader.readLine();
+        XStream xmlReader = new XStream();
+        String identify = String.valueOf(xmlReader.fromXML(who));
+        System.out.println(identify);
+        rand = Integer.parseInt(identify);
         if (rand == 1) {
             System.out.println("Вы играете за Крестики! ");
         } else if (rand == 0) {
@@ -55,11 +59,11 @@ public class MyClient extends JFrame implements Runnable {
     public static void reading() {
         try {
             while (!client.isClosed()) {
-                array = reader.readLine().toCharArray();
-                TikTacToe.numbers.add(array[0]);
-                TikTacToe.numbers.add(array[2]);
-                // TikTacToe.checkValue();
-                // TikTacToe.finish();
+                String str = reader.readLine();
+                ObjectMapper mapper = new ObjectMapper();
+                TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
+                TikTacToe.checkValue();
+                TikTacToe.finish();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,13 +72,9 @@ public class MyClient extends JFrame implements Runnable {
 
     public static void send(String s) {
         try {
-            //str = array[0] + " " + array[1];
             writer.write(s + '\n');
             writer.flush();
-            //TikTacToe.numbers.add(array[0]);
-            //TikTacToe.numbers.add(array[1]);
-            //   TikTacToe.finish();
-            System.out.println("Птичка улетела");
+            TikTacToe.finish();
         } catch (IOException ignored) {
         }
     }

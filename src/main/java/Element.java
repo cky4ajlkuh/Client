@@ -1,16 +1,16 @@
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
-public class Sosiska {
+public class Element {
     int number;
     char value;
 
-    Sosiska(int number, char value) {
+    Element(int number, char value) {
         this.number = number;
         this.value = value;
     }
 
-    public Sosiska() {
+    public Element() {
     }
 
     public int getNumber() {
