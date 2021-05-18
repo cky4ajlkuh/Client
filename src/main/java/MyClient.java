@@ -43,11 +43,6 @@ public class MyClient extends JFrame implements Runnable {
         String identify = String.valueOf(xmlReader.fromXML(who));
         System.out.println(identify);
         rand = Integer.parseInt(identify);
-        if (rand == 1) {
-            System.out.println("Вы играете за Крестики! ");
-        } else if (rand == 0) {
-            System.out.println("Вы играете за Нолики! ");
-        }
         new Thread(new MyClient()).start();
         new TikTacToe("Tik-Tac Toe");
         reading();

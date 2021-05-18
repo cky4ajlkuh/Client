@@ -373,6 +373,7 @@ public class TikTacToe extends JFrame implements Runnable {
         }
         if (elements.size() == 9) {
             JOptionPane.showMessageDialog(null, "Победила Дружба! ");
+            MyClient.client.close();
         }
     }
 
