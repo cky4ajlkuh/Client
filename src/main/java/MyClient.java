@@ -41,7 +41,6 @@ public class MyClient extends JFrame implements Runnable {
         String who = reader.readLine();
         XStream xmlReader = new XStream();
         String identify = String.valueOf(xmlReader.fromXML(who));
-        System.out.println(identify);
         rand = Integer.parseInt(identify);
         new Thread(new MyClient()).start();
         new TikTacToe("Tik-Tac Toe");
