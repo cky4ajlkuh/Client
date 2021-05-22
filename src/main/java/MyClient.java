@@ -38,11 +38,7 @@ public class MyClient extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) throws IOException {
-        String who = reader.readLine();
-        XStream xmlReader = new XStream();
-        String identify = String.valueOf(xmlReader.fromXML(who));
-        System.out.println(identify);
-        rand = Integer.parseInt(identify);
+        whoFirstPlay();
         new Thread(new MyClient()).start();
         new TikTacToe("Tik-Tac Toe");
         reading();
@@ -51,14 +47,31 @@ public class MyClient extends JFrame implements Runnable {
     MyClient() {
     }
 
+    public static void whoFirstPlay() throws IOException {
+        String who = reader.readLine();
+        XStream xmlReader = new XStream();
+        String identify = String.valueOf(xmlReader.fromXML(who));
+        System.out.println(identify);
+        rand = Integer.parseInt(identify);
+    }
+
     public static void reading() {
         try {
             while (!client.isClosed()) {
                 String str = reader.readLine();
-                ObjectMapper mapper = new ObjectMapper();
-                TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
-                TikTacToe.checkValue();
-                TikTacToe.finish();
+                if (str.equals("Крестики")) {
+                    TikTacToe.end("Крестики");
+                }
+                if (str.equals("Нолики")) {
+                    TikTacToe.end("Нолики");
+                }
+                if (str.equals("Дружба")) {
+                    TikTacToe.end("Дружба");
+                } else {
+                    ObjectMapper mapper = new ObjectMapper();
+                    TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
+                    TikTacToe.checkValue();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,7 +82,6 @@ public class MyClient extends JFrame implements Runnable {
         try {
             writer.write(s + '\n');
             writer.flush();
-            TikTacToe.finish();
         } catch (IOException ignored) {
         }
     }
@@ -77,6 +89,4 @@ public class MyClient extends JFrame implements Runnable {
     @Override
     public void run() {
     }
-
 }
-

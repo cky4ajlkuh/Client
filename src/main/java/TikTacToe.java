@@ -28,9 +28,7 @@ public class TikTacToe extends JFrame implements Runnable {
             }
         });
 
-        for (int i = 0; i < 9; i++) {
-            jButtons.add(new JButton(" ", iconH));
-        }
+        setIconH();
 
         if (MyClient.rand == 0) {
             JOptionPane.showMessageDialog(this, "Вы играете за Нолики! ");
@@ -262,118 +260,16 @@ public class TikTacToe extends JFrame implements Runnable {
         });
     }
 
-    public static void end(String str) throws IOException {
+    private void setIconH() {
+        for (int i = 0; i < 9; i++) {
+            jButtons.add(new JButton(" ", iconH));
+        }
+    }
+
+    public static void end(String str) {
         JOptionPane.showMessageDialog(null, str + " победили! ");
         for (JButton jbutton : jButtons) {
             jbutton.setEnabled(false);
-        }
-        MyClient.client.close();
-    }
-
-    public static void finish() throws IOException {
-        if (elements.size() >= 5) {
-            for (int i = 0; i < elements.size(); i++) {
-                for (int j = 0; j < elements.size(); j++) {
-                    for (Element element : elements) {
-                        if (elements.get(i).getNumber() == 0) {
-                            if (elements.get(j).getNumber() == 3) {
-                                if (element.getNumber() == 6) {
-                                    if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
-                                        end("Крестики");
-                                    }
-                                    if (elements.get(i).getValue() == 'O' && elements.get(j).getValue() == 'O' && element.getValue() == 'O') {
-                                        end("Нолики");
-                                    }
-                                }
-                            }
-                            if (elements.get(j).getNumber() == 1) {
-                                if (element.getNumber() == 2) {
-                                    if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
-                                        end("Крестики");
-                                    }
-                                    if (elements.get(i).getValue() == 'O' && elements.get(j).getValue() == 'O' && element.getValue() == 'O') {
-                                        end("Нолики");
-                                    }
-                                }
-                            }
-                            if (elements.get(j).getNumber() == 4) {
-                                if (element.getNumber() == 8) {
-                                    if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
-                                        end("Крестики");
-                                    }
-                                    if (elements.get(i).getValue() == 'O' && elements.get(j).getValue() == 'O' && element.getValue() == 'O') {
-                                        end("Нолики");
-                                    }
-                                }
-                            }
-                        }
-                        if (elements.get(i).getNumber() == 1) {
-                            if (elements.get(j).getNumber() == 4) {
-                                if (element.getNumber() == 7) {
-                                    if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
-                                        end("Крестики");
-                                    }
-                                    if (elements.get(i).getValue() == 'O' && elements.get(j).getValue() == 'O' && element.getValue() == 'O') {
-                                        end("Нолики");
-                                    }
-                                }
-                            }
-                        }
-                        if (elements.get(i).getNumber() == 2) {
-                            if (elements.get(j).getNumber() == 5) {
-                                if (element.getNumber() == 8) {
-                                    if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
-                                        end("Крестики");
-                                    }
-                                    if (elements.get(i).getValue() == 'O' && elements.get(j).getValue() == 'O' && element.getValue() == 'O') {
-                                        end("Нолики");
-                                    }
-                                }
-                            }
-                        }
-                        if (elements.get(i).getNumber() == 3) {
-                            if (elements.get(j).getNumber() == 4) {
-                                if (element.getNumber() == 5) {
-                                    if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
-                                        end("Крестики");
-                                    }
-                                    if (elements.get(i).getValue() == 'O' && elements.get(j).getValue() == 'O' && element.getValue() == 'O') {
-                                        end("Нолики");
-                                    }
-                                }
-                            }
-                        }
-                        if (elements.get(i).getNumber() == 6) {
-                            if (elements.get(j).getNumber() == 7) {
-                                if (element.getNumber() == 8) {
-                                    if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
-                                        end("Крестики");
-                                    }
-                                    if (elements.get(i).getValue() == 'O' && elements.get(j).getValue() == 'O' && element.getValue() == 'O') {
-                                        end("Нолики");
-                                    }
-                                }
-                            }
-                        }
-                        if (elements.get(i).getNumber() == 2) {
-                            if (elements.get(j).getNumber() == 4) {
-                                if (element.getNumber() == 6) {
-                                    if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
-                                        end("Крестики");
-                                    }
-                                    if (elements.get(i).getValue() == 'O' && elements.get(j).getValue() == 'O' && element.getValue() == 'O') {
-                                        end("Нолики");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (elements.size() == 9) {
-            JOptionPane.showMessageDialog(null, "Победила Дружба! ");
-            MyClient.client.close();
         }
     }
 
