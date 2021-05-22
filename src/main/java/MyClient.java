@@ -38,20 +38,17 @@ public class MyClient extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) throws IOException {
-        readWhoFirst();
+        String who = reader.readLine();
+        XStream xmlReader = new XStream();
+        String identify = String.valueOf(xmlReader.fromXML(who));
+        System.out.println(identify);
+        rand = Integer.parseInt(identify);
         new Thread(new MyClient()).start();
         new TikTacToe("Tik-Tac Toe");
         reading();
     }
 
     MyClient() {
-    }
-
-    public static void readWhoFirst() throws IOException {
-        String who = reader.readLine();
-        XStream xmlReader = new XStream();
-        String identify = String.valueOf(xmlReader.fromXML(who));
-        rand = Integer.parseInt(identify);
     }
 
     public static void reading() {
