@@ -334,8 +334,8 @@ public class TikTacToe extends JFrame implements Runnable {
                                 }
                             }
                         }
-                        if (elements.get(i).getNumber() == 5) {
-                            if (elements.get(j).getNumber() == 2) {
+                        if (elements.get(i).getNumber() == 2) {
+                            if (elements.get(j).getNumber() == 5) {
                                 if (element.getNumber() == 8) {
                                     if (elements.get(i).getValue() == 'X' && elements.get(j).getValue() == 'X' && element.getValue() == 'X') {
                                         end("Крестики");
