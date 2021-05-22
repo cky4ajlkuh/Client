@@ -14,6 +14,7 @@ public class TikTacToe extends JFrame implements Runnable {
     private final static ImageIcon iconH = new ImageIcon("-.png");
     private final static ImageIcon iconX = new ImageIcon("x.png");
     private final static ImageIcon iconO = new ImageIcon("o.png");
+    private final static JButton replay = new JButton("Еще раз!");
 
     public static final LinkedList<Element> elements = new LinkedList<>();
     public static final ArrayList<JButton> jButtons = new ArrayList<>();
@@ -28,9 +29,7 @@ public class TikTacToe extends JFrame implements Runnable {
             }
         });
 
-        for (int i = 0; i < 9; i++) {
-            jButtons.add(new JButton(" ", iconH));
-        }
+        setIconH();
 
         if (MyClient.rand == 0) {
             JOptionPane.showMessageDialog(this, "Вы играете за Нолики! ");
@@ -62,6 +61,7 @@ public class TikTacToe extends JFrame implements Runnable {
                         .addComponent(jButtons.get(7))
                         .addComponent(jButtons.get(8))
                 )
+                .addComponent(replay)
         );
         layout.setVerticalGroup(layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
@@ -79,12 +79,28 @@ public class TikTacToe extends JFrame implements Runnable {
                         .addComponent(jButtons.get(7))
                         .addComponent(jButtons.get(8))
                 )
+                .addComponent(replay)
         );
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         setSize(new Dimension(1280, 720));
+
+        replay.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    setIconH();
+                    elements.clear();
+                    MyClient.writer.write("return" + '\n');
+                    MyClient.writer.flush();
+                    MyClient.readWhoFirst();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
 
         jButtons.get(0).addMouseListener(new MouseAdapter() {
             @Override
@@ -262,12 +278,11 @@ public class TikTacToe extends JFrame implements Runnable {
         });
     }
 
-    public static void end(String str) throws IOException {
+    public static void end(String str) {
         JOptionPane.showMessageDialog(null, str + " победили! ");
         for (JButton jbutton : jButtons) {
             jbutton.setEnabled(false);
         }
-        MyClient.client.close();
     }
 
     public static void finish() throws IOException {
@@ -373,7 +388,6 @@ public class TikTacToe extends JFrame implements Runnable {
         }
         if (elements.size() == 9) {
             JOptionPane.showMessageDialog(null, "Победила Дружба! ");
-            MyClient.client.close();
         }
     }
 
@@ -387,6 +401,12 @@ public class TikTacToe extends JFrame implements Runnable {
         }
         if (MyClient.rand == 0) {
             jButtons.get(elements.getLast().getNumber()).setIcon(iconX);
+        }
+    }
+
+    private void setIconH() {
+        for (int i = 0; i < 9; i++) {
+            jButtons.add(new JButton(" ", iconH));
         }
     }
 
