@@ -8,6 +8,8 @@ import java.net.Socket;
 public class MyClient extends JFrame implements Runnable {
     static Socket client;
     public static int rand = 0;
+    public static boolean finish = true;
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     static {
         try {
@@ -51,27 +53,27 @@ public class MyClient extends JFrame implements Runnable {
         String who = reader.readLine();
         XStream xmlReader = new XStream();
         String identify = String.valueOf(xmlReader.fromXML(who));
-        System.out.println(identify);
         rand = Integer.parseInt(identify);
     }
 
     public static void reading() {
         try {
-            while (!client.isClosed()) {
+            while (finish) {
                 String str = reader.readLine();
                 if (str.equals("Крестики")) {
+                    finish = false;
                     TikTacToe.end("Крестики");
                 }
                 if (str.equals("Нолики")) {
+                    finish = false;
                     TikTacToe.end("Нолики");
                 }
                 if (str.equals("Дружба")) {
+                    finish = false;
                     TikTacToe.end("Дружба");
-                } else {
-                    ObjectMapper mapper = new ObjectMapper();
-                    TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
-                    TikTacToe.checkValue();
                 }
+                TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
+                TikTacToe.checkValue();
             }
         } catch (IOException e) {
             e.printStackTrace();

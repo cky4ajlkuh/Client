@@ -14,6 +14,7 @@ public class TikTacToe extends JFrame implements Runnable {
     private final static ImageIcon iconH = new ImageIcon("-.png");
     private final static ImageIcon iconX = new ImageIcon("x.png");
     private final static ImageIcon iconO = new ImageIcon("o.png");
+    private final static JButton replay = new JButton("Еще раз!");
 
     public static final LinkedList<Element> elements = new LinkedList<>();
     public static final ArrayList<JButton> jButtons = new ArrayList<>();
@@ -60,6 +61,7 @@ public class TikTacToe extends JFrame implements Runnable {
                         .addComponent(jButtons.get(7))
                         .addComponent(jButtons.get(8))
                 )
+                .addComponent(replay)
         );
         layout.setVerticalGroup(layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
@@ -77,12 +79,28 @@ public class TikTacToe extends JFrame implements Runnable {
                         .addComponent(jButtons.get(7))
                         .addComponent(jButtons.get(8))
                 )
+                .addComponent(replay)
         );
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         setSize(new Dimension(1280, 720));
+
+        replay.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jButtons.forEach(jButton -> jButton.setEnabled(true));
+                MyClient.send("replay");
+                setIconH();
+                MyClient.finish = true;
+                try {
+                    MyClient.whoFirstPlay();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
 
         jButtons.get(0).addMouseListener(new MouseAdapter() {
             @Override
@@ -266,7 +284,7 @@ public class TikTacToe extends JFrame implements Runnable {
         }
     }
 
-    public static void end(String str) {
+    public static void end(String str) throws IOException {
         JOptionPane.showMessageDialog(null, str + " победили! ");
         for (JButton jbutton : jButtons) {
             jbutton.setEnabled(false);
