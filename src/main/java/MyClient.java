@@ -8,7 +8,7 @@ import java.net.Socket;
 public class MyClient extends JFrame implements Runnable {
     static Socket client;
     public static int rand = 0;
-    public static boolean finish = true;
+    public static boolean finish = false;
     private static final ObjectMapper mapper = new ObjectMapper();
 
     static {
@@ -44,16 +44,34 @@ public class MyClient extends JFrame implements Runnable {
         new Thread(new MyClient()).start();
         new TikTacToe("Tik-Tac Toe");
         reading();
+        System.out.println("Aaaaaaaaa");
+        while (!client.isClosed()) {
+            game();
+        }
     }
 
     MyClient() {
     }
 
+    public static void game() throws IOException {
+        while (!finish) {
+            whoFirstPlay();
+        }
+        reading();
+    }
+
     public static void whoFirstPlay() throws IOException {
         String who = reader.readLine();
-        XStream xmlReader = new XStream();
-        String identify = String.valueOf(xmlReader.fromXML(who));
-        rand = Integer.parseInt(identify);
+        if (!who.equals("Нолики") & !who.equals("Крестики") & !who.equals("Дружба")){
+            XStream xmlReader = new XStream();
+            System.out.println(who);
+            String identify = String.valueOf(xmlReader.fromXML(who));
+            System.out.println(identify);
+            rand = Integer.parseInt(identify);
+            TikTacToe.setIconH();
+            TikTacToe.startGame();
+            finish = true;
+        }
     }
 
     public static void reading() {
@@ -71,9 +89,12 @@ public class MyClient extends JFrame implements Runnable {
                 if (str.equals("Дружба")) {
                     finish = false;
                     TikTacToe.end("Дружба");
+
                 }
-                TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
-                TikTacToe.checkValue();
+                if (finish) {
+                    TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
+                    TikTacToe.checkValue();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.stream.IntStream;
 
 public class TikTacToe extends JFrame implements Runnable {
 
@@ -28,18 +29,6 @@ public class TikTacToe extends JFrame implements Runnable {
                 g.drawImage(image, 0, 0, null);
             }
         });
-
-        setIconH();
-
-        if (MyClient.rand == 0) {
-            JOptionPane.showMessageDialog(this, "Вы играете за Нолики! ");
-            for (int i = 0; i < 9; i++) {
-                jButtons.get(i).setEnabled(false);
-            }
-        }
-        if (MyClient.rand == 1) {
-            JOptionPane.showMessageDialog(this, "Вы играете за Крестики! ");
-        }
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,15 +79,9 @@ public class TikTacToe extends JFrame implements Runnable {
         replay.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                IntStream.range(0, 9).forEach(i -> jButtons.get(i).setIcon(iconH));
                 jButtons.forEach(jButton -> jButton.setEnabled(true));
                 MyClient.send("replay");
-                setIconH();
-                MyClient.finish = true;
-                try {
-                    MyClient.whoFirstPlay();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
             }
         });
 
@@ -278,10 +261,23 @@ public class TikTacToe extends JFrame implements Runnable {
         });
     }
 
-    private void setIconH() {
+    public static void startGame() {
+        if (MyClient.rand == 0) {
+            JOptionPane.showMessageDialog(null, "Вы играете за Нолики! ");
+            for (int i = 0; i < 9; i++) {
+                jButtons.get(i).setEnabled(false);
+            }
+        }
+        if (MyClient.rand == 1) {
+            JOptionPane.showMessageDialog(null, "Вы играете за Крестики! ");
+        }
+    }
+
+    public static void setIconH() {
         for (int i = 0; i < 9; i++) {
             jButtons.add(new JButton(" ", iconH));
         }
+        System.out.println("aaaaaaaaa");
     }
 
     public static void end(String str) throws IOException {
