@@ -40,11 +40,11 @@ public class MyClient extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) throws IOException {
+        TikTacToe.createJButtons();
         whoFirstPlay();
         new Thread(new MyClient()).start();
         new TikTacToe("Tik-Tac Toe");
         reading();
-        System.out.println("Aaaaaaaaa");
         while (!client.isClosed()) {
             game();
         }
@@ -64,9 +64,7 @@ public class MyClient extends JFrame implements Runnable {
         String who = reader.readLine();
         if (!who.equals("Нолики") & !who.equals("Крестики") & !who.equals("Дружба")){
             XStream xmlReader = new XStream();
-            System.out.println(who);
             String identify = String.valueOf(xmlReader.fromXML(who));
-            System.out.println(identify);
             rand = Integer.parseInt(identify);
             TikTacToe.setIconH();
             TikTacToe.startGame();
@@ -89,11 +87,11 @@ public class MyClient extends JFrame implements Runnable {
                 if (str.equals("Дружба")) {
                     finish = false;
                     TikTacToe.end("Дружба");
-
                 }
                 if (finish) {
                     TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
                     TikTacToe.checkValue();
+                    System.out.println("Прочитано");
                 }
             }
         } catch (IOException e) {
@@ -105,6 +103,7 @@ public class MyClient extends JFrame implements Runnable {
         try {
             writer.write(s + '\n');
             writer.flush();
+            System.out.println("Отправка была");
         } catch (IOException ignored) {
         }
     }

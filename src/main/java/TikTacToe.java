@@ -78,9 +78,7 @@ public class TikTacToe extends JFrame implements Runnable {
 
         replay.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                IntStream.range(0, 9).forEach(i -> jButtons.get(i).setIcon(iconH));
-                jButtons.forEach(jButton -> jButton.setEnabled(true));
+            public void mousePressed(MouseEvent e) {
                 MyClient.send("replay");
             }
         });
@@ -261,6 +259,13 @@ public class TikTacToe extends JFrame implements Runnable {
         });
     }
 
+    public static void createJButtons() {
+        for (int i = 0; i < 9; i++) {
+            JButton button = new JButton(" ", iconH);
+            jButtons.add(button);
+        }
+    }
+
     public static void startGame() {
         if (MyClient.rand == 0) {
             JOptionPane.showMessageDialog(null, "Вы играете за Нолики! ");
@@ -274,10 +279,11 @@ public class TikTacToe extends JFrame implements Runnable {
     }
 
     public static void setIconH() {
+        elements.clear();
         for (int i = 0; i < 9; i++) {
-            jButtons.add(new JButton(" ", iconH));
+            jButtons.get(i).setIcon(iconH);
         }
-        System.out.println("aaaaaaaaa");
+        jButtons.forEach(jButton -> jButton.setEnabled(true));
     }
 
     public static void end(String str) throws IOException {
