@@ -83,21 +83,27 @@ public class MyClient extends JFrame implements Runnable {
                     String str = reader.readLine();
                     if (str != null) {
                         if (str.equals("Крестики")) {
+                            TikTacToe.x++;
+                            TikTacToe.filed.setText("Крестики " + TikTacToe.x + " : " + TikTacToe.o + " Нолики");
                             finish = false;
                             TikTacToe.end("Крестики");
                         }
                         if (str.equals("Нолики")) {
+                            TikTacToe.o++;
+                            TikTacToe.filed.setText("Крестики " + TikTacToe.x + " : " + TikTacToe.o + " Нолики");
                             finish = false;
                             TikTacToe.end("Нолики");
                         }
                         if (str.equals("Дружба")) {
+                            TikTacToe.x++;
+                            TikTacToe.o++;
+                            TikTacToe.filed.setText("Крестики " + TikTacToe.x + " : " + TikTacToe.o + " Нолики");
                             finish = false;
                             TikTacToe.end("Дружба");
                         }
                         if (finish) {
                             TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
                             TikTacToe.checkValue();
-                            System.out.println("Прочитано");
                         }
                     }
                 }
@@ -112,7 +118,6 @@ public class MyClient extends JFrame implements Runnable {
             if (!client.isClosed()) {
                 writer.write(s + '\n');
                 writer.flush();
-                System.out.println("Отправка была");
             }
         } catch (IOException ignored) {
         }

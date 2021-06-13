@@ -14,10 +14,13 @@ import java.util.stream.IntStream;
 
 public class TikTacToe extends JFrame implements Runnable {
 
+    public static int x = 0;
+    public static int o = 0;
     private final static ImageIcon iconH = new ImageIcon("-.png");
     private final static ImageIcon iconX = new ImageIcon("x.png");
     private final static ImageIcon iconO = new ImageIcon("o.png");
     private final static JButton replay = new JButton("Еще раз!");
+    public static JTextField filed = new JTextField("0 : 0");
 
     public static final LinkedList<Element> elements = new LinkedList<>();
     public static final ArrayList<JButton> jButtons = new ArrayList<>();
@@ -32,45 +35,53 @@ public class TikTacToe extends JFrame implements Runnable {
             }
         });
 
+        filed.setText("Крестики " + x + " : " + o + " Нолики");
+        filed.setEnabled(false);
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
-        layout.setHorizontalGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(jButtons.get(0))
-                        .addComponent(jButtons.get(1))
-                        .addComponent(jButtons.get(2))
+        layout.setHorizontalGroup(layout.createParallelGroup()
+                .addComponent(filed)
+                .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(jButtons.get(0))
+                                .addComponent(jButtons.get(1))
+                                .addComponent(jButtons.get(2))
+                        )
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(jButtons.get(3))
+                                .addComponent(jButtons.get(4))
+                                .addComponent(jButtons.get(5))
+                        )
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(jButtons.get(6))
+                                .addComponent(jButtons.get(7))
+                                .addComponent(jButtons.get(8))
+                        )
+                        .addComponent(replay)
                 )
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(jButtons.get(3))
-                        .addComponent(jButtons.get(4))
-                        .addComponent(jButtons.get(5))
-                )
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(jButtons.get(6))
-                        .addComponent(jButtons.get(7))
-                        .addComponent(jButtons.get(8))
-                )
-                .addComponent(replay)
         );
-        layout.setVerticalGroup(layout.createParallelGroup()
-                .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtons.get(0))
-                        .addComponent(jButtons.get(1))
-                        .addComponent(jButtons.get(2))
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addComponent(filed)
+                .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtons.get(0))
+                                .addComponent(jButtons.get(1))
+                                .addComponent(jButtons.get(2))
+                        )
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtons.get(3))
+                                .addComponent(jButtons.get(4))
+                                .addComponent(jButtons.get(5))
+                        )
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtons.get(6))
+                                .addComponent(jButtons.get(7))
+                                .addComponent(jButtons.get(8))
+                        )
+                        .addComponent(replay)
                 )
-                .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtons.get(3))
-                        .addComponent(jButtons.get(4))
-                        .addComponent(jButtons.get(5))
-                )
-                .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtons.get(6))
-                        .addComponent(jButtons.get(7))
-                        .addComponent(jButtons.get(8))
-                )
-                .addComponent(replay)
         );
         setVisible(true);
         setResizable(false);
