@@ -61,37 +61,45 @@ public class MyClient extends JFrame implements Runnable {
     }
 
     public static void whoFirstPlay() throws IOException {
-        String who = reader.readLine();
-        if (!who.equals("Нолики") & !who.equals("Крестики") & !who.equals("Дружба")){
-            XStream xmlReader = new XStream();
-            String identify = String.valueOf(xmlReader.fromXML(who));
-            rand = Integer.parseInt(identify);
-            TikTacToe.setIconH();
-            TikTacToe.startGame();
-            finish = true;
+        if (!client.isClosed()) {
+            String who = reader.readLine();
+            if (who != null) {
+                if (!who.equals("Нолики") & !who.equals("Крестики") & !who.equals("Дружба")) {
+                    XStream xmlReader = new XStream();
+                    String identify = String.valueOf(xmlReader.fromXML(who));
+                    rand = Integer.parseInt(identify);
+                    TikTacToe.setIconH();
+                    TikTacToe.startGame();
+                    finish = true;
+                }
+            }
         }
     }
 
     public static void reading() {
         try {
-            while (finish) {
-                String str = reader.readLine();
-                if (str.equals("Крестики")) {
-                    finish = false;
-                    TikTacToe.end("Крестики");
-                }
-                if (str.equals("Нолики")) {
-                    finish = false;
-                    TikTacToe.end("Нолики");
-                }
-                if (str.equals("Дружба")) {
-                    finish = false;
-                    TikTacToe.end("Дружба");
-                }
-                if (finish) {
-                    TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
-                    TikTacToe.checkValue();
-                    System.out.println("Прочитано");
+            if (!client.isClosed()) {
+                while (finish) {
+                    String str = reader.readLine();
+                    if (str != null) {
+                        if (str.equals("Крестики")) {
+                            finish = false;
+                            TikTacToe.end("Крестики");
+                        }
+                        if (str.equals("Нолики")) {
+                            finish = false;
+                            TikTacToe.end("Нолики");
+                        }
+                        if (str.equals("Дружба")) {
+                            finish = false;
+                            TikTacToe.end("Дружба");
+                        }
+                        if (finish) {
+                            TikTacToe.elements.add(mapper.readValue(new StringReader(str), Element.class));
+                            TikTacToe.checkValue();
+                            System.out.println("Прочитано");
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
@@ -101,9 +109,11 @@ public class MyClient extends JFrame implements Runnable {
 
     public static void send(String s) {
         try {
-            writer.write(s + '\n');
-            writer.flush();
-            System.out.println("Отправка была");
+            if (!client.isClosed()) {
+                writer.write(s + '\n');
+                writer.flush();
+                System.out.println("Отправка была");
+            }
         } catch (IOException ignored) {
         }
     }

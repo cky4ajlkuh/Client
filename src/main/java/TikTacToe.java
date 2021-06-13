@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -71,10 +73,25 @@ public class TikTacToe extends JFrame implements Runnable {
                 .addComponent(replay)
         );
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         setSize(new Dimension(1280, 720));
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                MyClient.send("close");
+                try {
+                    MyClient.client.close();
+                    MyClient.reader.close();
+                    MyClient.writer.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         replay.addMouseListener(new MouseAdapter() {
             @Override
@@ -260,10 +277,7 @@ public class TikTacToe extends JFrame implements Runnable {
     }
 
     public static void createJButtons() {
-        for (int i = 0; i < 9; i++) {
-            JButton button = new JButton(" ", iconH);
-            jButtons.add(button);
-        }
+        IntStream.range(0, 9).mapToObj(i -> new JButton(" ", iconH)).forEach(jButtons::add);
     }
 
     public static void startGame() {
@@ -280,24 +294,18 @@ public class TikTacToe extends JFrame implements Runnable {
 
     public static void setIconH() {
         elements.clear();
-        for (int i = 0; i < 9; i++) {
-            jButtons.get(i).setIcon(iconH);
-        }
+        IntStream.range(0, 9).forEach(i -> jButtons.get(i).setIcon(iconH));
         jButtons.forEach(jButton -> jButton.setEnabled(true));
     }
 
     public static void end(String str) throws IOException {
         JOptionPane.showMessageDialog(null, str + " победили! ");
-        for (JButton jbutton : jButtons) {
-            jbutton.setEnabled(false);
-        }
+        jButtons.forEach(jbutton -> jbutton.setEnabled(false));
     }
 
     public static void checkValue() {
         jButtons.forEach(jButton -> jButton.setEnabled(true));
-        for (int i = 0; i != elements.size(); i++) {
-            jButtons.get(elements.get(i).getNumber()).setEnabled(false);
-        }
+        IntStream.range(0, elements.size()).forEach(i -> jButtons.get(elements.get(i).getNumber()).setEnabled(false));
         if (MyClient.rand == 1) {
             jButtons.get(elements.getLast().getNumber()).setIcon(iconO);
         }
